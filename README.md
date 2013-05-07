@@ -1,4 +1,4 @@
-javascript-color-palette
+javascript color palette
 ========================
 
-Generate a color palette from an image using JavaScript
+This is an example of how to use JavaScript to generate a color palette from an image using the canvas and the web workers APIs.
