@@ -183,9 +183,7 @@ CMap.prototype = {
         });
     },
     palette: function() {
-        return this.vboxes.map(function(vb) {
-            return vb.color;
-        });
+        return this.vboxes;
     },
     size: function() {
         return this.vboxes.size();
@@ -356,6 +354,7 @@ function medianCutApply(histo, vbox) {
 }
 
 function quantize(pixels, maxcolors) {
+
     // short-circuit
     if (!pixels.length || maxcolors < 2 || maxcolors > 256) {
         //            console.log('wrong number of maxcolors');

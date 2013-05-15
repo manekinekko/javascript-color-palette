@@ -3,19 +3,29 @@ importScripts('quantize.js');
 
 self.addEventListener('message', function(e) {
 	var pixels = e.data.data;
-	var colors = palette(pixels, 10);
-	var res = [];
-	colors.forEach(function(color){
+	var nbColors = e.data.nbColors;
+	var colors = palette(pixels, nbColors || 10);
+	var resColors = [], resStats = [];
+	colors.map(function(vb) {
+		return vb.color;
+	}).forEach(function(color){
 		var r = color[0], 
 				g = color[1], 
 				b = color[2], 
 				val = r << 16 | g << 8 | b, 
 				str = '#' + val.toString(16);
-		res.push(str);
+		resColors.push(str);
+	});
+
+	colors.map(function(vb){
+		return vb.vbox._count;
+	}).forEach(function(stat){
+		resStats.push(stat);
 	});
 
 	self.postMessage({
-		"colors": res
+		colors: resColors,
+		stats: resStats
 	});
 	
 });
