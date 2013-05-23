@@ -1,62 +1,101 @@
 <!doctype html>
 <html>
-<head>
-	<title>JavaScript Color Palette</title>
-	<style>
-	img.image {
-		cursor: pointer;
-		display: inline-block;
-		vertical-align: top;
-		zoom: 1; /* Fix for IE7 */
-		*display: inline; /* Fix for IE7 */
-	}
-	div#colorsPalette {
-		line-height:0;
-	}
-	pre {
-		display:inline-block;
-	}
-	img {
-		display:inline-block;
-	}
-	canvas {
-		display:none;
-	}
-	</style>
-</head>
-<body>
-	<div>
-		<img class="image" src="img/image (1).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (2).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (3).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (4).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (5).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (6).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (7).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (8).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (9).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (10).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (11).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (12).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (13).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (14).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (15).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (16).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (17).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (18).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (19).jpg" alt="" width="70px" height="70px" />
-		<img class="image" src="img/image (20).jpg" alt="" width="70px" height="70px" />
-	</div>
-	<br>
-	<img width="400px" src="img/image (1).jpg" id="image"/>
-	<canvas id="canvas"></canvas>
-	<br>
-		<div id="color-number">
-			<label for="palette-number">Color number</label>
-			<input type="range" id="palette-number" value="30" step="2" min="6" max="30"><span id="range-output"></span>
+	<head>
+		<title>JavaScript Color Palette</title>
+		<style>
+		img.image {
+			margin: -4px;
+			cursor: pointer;
+			vertical-align: top;
+			zoom: 1;
+			*display: inline;
+			display:inline-block;
+			transition: all 0.2s ease-in-out;
+		}
+		img#image {
+			display: none;
+		}
+		img.image:hover {
+			-webkit-transform: scale(1.5);
+		}
+		div#colors-palette {
+			line-height:0;
+			display: block;
+		}
+		div#colors-palette span {
+			transition: all 0.2s linear;
+			cursor: pointer;
+		}
+		div#colors-palette span:hover {
+			-webkit-transform: scaleX(2);
+		}
+		div#images-block {
+			width: 300px;
+			height: 600px;
+			padding: 4px;
+		}
+		div {
+			display: inline-block;
+			vertical-align: top
+		}
+		pre {
+			display:inline-block;
+		}
+		canvas#canvas {
+			display: none;
+		}
+		canvas#preview {
+			cursor: pointer;
+		}
+		[data-selected="true"]{
+			border: 1px solid #000;
+		}
+		</style>
+	</head>
+	<body>
+		<div id="images-block">
+			<img class="image" src="img/image (1).jpg" alt="" width="70px" height="70px" />
+			<img class="image" src="img/image (2).jpg" alt="" width="70px" height="70px" />
+			<img class="image" src="img/image (3).jpg" alt="" width="70px" height="70px" />
+			<img class="image" src="img/image (4).jpg" alt="" width="70px" height="70px" />
+			<img class="image" src="img/image (5).jpg" alt="" width="70px" height="70px" />
+			<img class="image" src="img/image (6).jpg" alt="" width="70px" height="70px" />
+			<img class="image" src="img/image (7).jpg" alt="" width="70px" height="70px" />
+			<img class="image" src="img/image (8).jpg" alt="" width="70px" height="70px" />
+			<img class="image" src="img/image (9).jpg" alt="" width="70px" height="70px" />
+			<img class="image" src="img/image (10).jpg" alt="" width="70px" height="70px" />
+			<img class="image" src="img/image (11).jpg" alt="" width="70px" height="70px" />
+			<img class="image" src="img/image (12).jpg" alt="" width="70px" height="70px" />
+			<img class="image" src="img/image (13).jpg" alt="" width="70px" height="70px" />
+			<img class="image" src="img/image (14).jpg" alt="" width="70px" height="70px" />
+			<img class="image" src="img/image (15).jpg" alt="" width="70px" height="70px" />
+			<img class="image" src="img/image (16).jpg" alt="" width="70px" height="70px" />
+			<!-- <img class="image" src="img/image (17).jpg" alt="" width="70px" height="70px" /> -->
+			<!-- <img class="image" src="img/image (18).jpg" alt="" width="70px" height="70px" /> -->
+			<img class="image" src="img/image (19).jpg" alt="" width="70px" height="70px" />
+			<!-- <img class="image" src="img/image (20).jpg" alt="" width="70px" height="70px" /> -->
+			<img class="image" src="img/image (21).png" alt="" width="70px" height="70px" />
+			<img class="image" src="img/image (22).png" alt="" width="70px" height="70px" />
+			<img class="image" src="img/image (23).png" alt="" width="70px" height="70px" />
+			<img class="image" src="img/image (24).png" alt="" width="70px" height="70px" />
 		</div>
-		<div id="colorsPalette">
-			<pre id="result">Analyzing...</pre>
+		<div>
+			<img width="400px" src="img/image (1).jpg" id="image"/>
+			<canvas id="preview"></canvas>
+			<canvas id="canvas"></canvas>
+		</div>
+		<div id="commands">
+			<label for="palette-number">Color number</label>
+			<input type="range" id="palette-number" value="6" step="2" min="6" max="30"><span id="range-output"></span><br>
+			<label for="palette-number">offset</label>
+			<input type="range" id="offset" value="0" step="1" min="0" max="255"><span id="offset-output"></span><br>
+			<label for="bw">Black</label>
+			<input type="range" id="bw" value="2.5" step="0.01" min="0" max="5">
+			<label for="bw">White</label>
+			<!-- <input type="color" id="fillColor"> -->
+			<div id="colors-palette">
+				<pre id="result">Analyzing...</pre>
+			</div>
 		</div>
 		<script src="script.js"></script>
 	</body>
