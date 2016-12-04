@@ -6,7 +6,7 @@ This is an example of how to use JavaScript to generate a color palette from an 
 Demo
 ====
 
-http://cheghamwassim.com/apps/js/javascript-color-palette/
+http://wassimchegham.com/apps/js/javascript-color-palette/
 
 
 
